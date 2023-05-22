@@ -1,0 +1,17 @@
+* {
+  background-color: azure;
+}
+header {
+  display: flex;
+  justify-content: space-between;
+  padding: 0% 2% 0 2%;
+  border-bottom: 1px solid black;
+}
+main {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+.quiz-question-container {
+  display: none;
+}
