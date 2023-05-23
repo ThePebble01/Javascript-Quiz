@@ -14,7 +14,19 @@ main {
 }
 /* #quiz-question-container {
   display: none;
-}
-#answer-result {
+}*/
+answer-result {
   display: none;
-} */
+  border-top: 1px solid grey;
+  color: grey;
+}
+/* BLOCKS FOR TESTING STATES */
+#welcome-container {
+  display: none;
+}
+#save-score {
+  display: inline;
+}
+/* #show-scores{
+  display:none;
+ } */

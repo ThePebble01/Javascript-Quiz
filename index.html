@@ -26,9 +26,35 @@
       <div id="quiz-question-container">
         <div id="quiz-question"></div>
         <ol id="options"></ol>
+        <!-- add text clarifying this was the result of the prior score -->
         <div id="answer-result"></div>
         <!-- Placeholder! -->
         <button id="wrong">WRONG</button>
+      </div>
+      <div id="save-score">
+        <p>Your score is: <span id="final-score">0</span></p>
+        <input id="initials" type="text" placeholder="ENTER YOUR INITIALS" />
+        <!--Trim on call..-->
+        <button id="submit-score">Submit</button>
+      </div>
+      <div id="show-scores">
+        <table id="high-scores">
+          <tr>
+            <th>Initials</th>
+            <th>Score</th>
+            <th>Quiz Date</th>
+          </tr>
+          <div id="score-data">
+            <!-- <tr>
+              <td>John</td>
+              <td>Doe</td>
+            </tr>
+            <tr>
+              <td>Jane</td>
+              <td>Doe</td>
+            </tr> -->
+          </div>
+        </table>
       </div>
     </main>
     <script src="./assets/js/script.js"></script>

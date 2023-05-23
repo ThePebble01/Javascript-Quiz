@@ -3,7 +3,7 @@ const quizQuestions = [
   new QuizQuestion("bibidy?", ["bob", "idy", "boo"], "boo"),
   new QuizQuestion("bibidy 2?", ["bob 2", "idy 2", "boo 2"], "idy 2"),
 ];
-document.getElementById("start-quiz").addEventListener("click", startQuiz);
+var localStorageScoreKey = "js-quiz-scores";
 var timerEl = document.getElementById("quiz-timer");
 var welcomeEl = document.getElementById("welcome-container");
 var quizEl = document.getElementById("quiz-question-container");
@@ -12,6 +12,8 @@ var answerOptions = document.getElementById("options");
 var quizAnswerResult = document.getElementById("answer-result");
 var applicationState = "welcome-page"; //quiz, save score, view scores
 var initialSecondsRemaining = 60;
+
+document.getElementById("start-quiz").addEventListener("click", startQuiz);
 function startQuiz() {
   startTimer();
   welcomeEl.style.display = "none";
@@ -49,9 +51,31 @@ function startTimer() {
     }
   }, 1000);
 }
+var score = 0; //move to top!
+document.getElementById("submit-score").addEventListener("click", saveScore);
+
+var visitorInitials = document.getElementById("initials");
+function saveScore() {
+  console.log(visitorInitials);
+  console.log(visitorInitials.textContent);
+  var visitorScore = new VisitorScore(visitorInitials.textContent, score);
+  var serializedVisitorScore = JSON.stringify(visitorScore);
+  var currentScores = JSON.parse(localStorage.getItem(localStorageScoreKey));
+  // CONFIRM NOT NEEDED
+  if (!(currentScores && Array.isArray(currentScores))) {
+    currentScores = [];
+  }
+  currentScores.push(serializedVisitorScore);
+  localStorage.setItem(localStorageScoreKey, currentScores);
+}
 
 function QuizQuestion(question, options, answer) {
   this.question = question;
   this.options = options;
   this.answer = answer;
+}
+function VisitorScore(initials, score) {
+  this.initials = initials;
+  this.score = score;
+  this.quizDate = Date();
 }
