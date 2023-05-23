@@ -12,6 +12,9 @@ main {
   flex-direction: column;
   text-align: center;
 }
-.quiz-question-container {
+/* #quiz-question-container {
   display: none;
 }
+#answer-result {
+  display: none;
+} */

@@ -6,8 +6,4 @@ Test your javascript knowledge with a timed quiz! There will be 20 questions wit
 
 ## Usage
 
-View the app!
-
-https://thepebble01.github.io/Module-02-Challenge-Portfolio/
-
 ## Credits
