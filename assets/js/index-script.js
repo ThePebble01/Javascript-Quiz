@@ -118,7 +118,7 @@ const quizQuestions = [
 const localStorageScoreKey = "jsQuizScores";
 var quizEl = $("#quiz-question-container");
 var saveScoreEl = $("#save-score-container");
-var quizTimeRemainingEl = $("#quiz-timer"); //Declared as a global var to avoid minor delay with the JQuery pointer re-retrieving this element.
+var quizTimeRemainingEl = $("#quiz-timer"); //Declared as a global var to avoid a minor delay with the JQuery pointer re-retrieving this element.
 var secondsRemaining = 60;
 var currentQuestionIndex = -1;
 var score = 0;
@@ -157,6 +157,7 @@ function handleSaveScore(event) {
   localStorage.setItem(localStorageScoreKey, JSON.stringify(currentScores));
   window.location.href = "./high-scores.html";
 }
+
 // Supporting Function
 function progressQuestions() {
   if (currentQuestionIndex < quizQuestions.length - 1) {
@@ -203,7 +204,7 @@ $("#start-quiz").on("click", handleStartQuiz);
 
 $("ol").on("click", "li", handleQuizAnswer);
 
-$("#submit-score").on("click", handleSaveScore); //when swapping with form, use "submit" as the event
+$("#submit-score").on("click", handleSaveScore);
 
 // Object Definitions
 function QuizQuestion(question, options, answer) {

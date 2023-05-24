@@ -6,4 +6,6 @@ Test your javascript knowledge with a timed quiz! There will be 20 questions wit
 
 ## Usage
 
-## Credits
+View the application: https://thepebble01.github.io/Javascript-Quiz/index.html
+
+Click "Start Quiz" to start the quiz. You can click the View High Scores link in the header to view your past attempts.
