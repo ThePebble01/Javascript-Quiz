@@ -22,11 +22,11 @@ answer-result {
 }
 /* BLOCKS FOR TESTING STATES */
 #welcome-container {
-  display: none;
-}
-#save-score {
   display: inline;
 }
-/* #show-scores{
-  display:none;
- } */
+#save-score {
+  display: none;
+}
+#show-scores {
+  display: none;
+}

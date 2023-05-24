@@ -1,20 +1,33 @@
+/*
+TODO: GET THIS WORKING, THEN SWAP WITH JQUERY
+
+UPDATE IDS AND VAR NAMES TO REF SOURCE TAG/ELM
+
+
+BUTTON INVOKED FUNCTIONS GET HANDLE___ AT START OF NAME
+
+LISTENERS GO TO BOTTOM; ADD SECTION FOR IT
+*/
+
 const quizQuestions = [
   //CHECK README FOR # Q's PROMISED
   new QuizQuestion("bibidy?", ["bob", "idy", "boo"], "boo"),
   new QuizQuestion("bibidy 2?", ["bob 2", "idy 2", "boo 2"], "idy 2"),
 ];
-var localStorageScoreKey = "js-quiz-scores";
+var localStorageScoreKey = "jsQuizScores";
 var timerEl = document.getElementById("quiz-timer");
 var welcomeEl = document.getElementById("welcome-container");
 var quizEl = document.getElementById("quiz-question-container");
 var quizQuestionEl = document.getElementById("quiz-question");
-var answerOptions = document.getElementById("options");
-var quizAnswerResult = document.getElementById("answer-result");
-var applicationState = "welcome-page"; //quiz, save score, view scores
-var initialSecondsRemaining = 60;
+var answerOptionsEl = document.getElementById("options");
+var quizAnswerResultEl = document.getElementById("answer-result");
+var showScoresEl = document.getElementById("show-scores");
+var currentApplicationState = "welcome-page"; //TRACK BASED ON F() CALLS   quiz, save score, view scores
+var initialSecondsRemaining = 60; //rename
 
 document.getElementById("start-quiz").addEventListener("click", startQuiz);
-function startQuiz() {
+function startQuiz(event) {
+  event.preventDefault(); //ADDED W/O TESTING
   startTimer();
   welcomeEl.style.display = "none";
   quizEl.style.display = "block";
@@ -32,7 +45,7 @@ function setQuizQuestion(questionObj) {
     var quizOption = document.createElement("li");
     quizOption.textContent = questionObj.options[i];
     quizOption.value = i + 1;
-    answerOptions.appendChild(quizOption);
+    answerOptionsEl.appendChild(quizOption);
   }
 }
 document.getElementById("wrong").addEventListener("click", deductTime);
@@ -47,28 +60,50 @@ function startTimer() {
     if (initialSecondsRemaining == 0) {
       //MAKE STRICT BASED ON FEEDBACK FROM MOD 3...I WRITE THE VARS I KNOW WHAT TYPE THEY ARE
       clearInterval(quizTimer);
-      //change state
+      //change state TO SCORE
     }
   }, 1000);
 }
-var score = 0; //move to top!
-document.getElementById("submit-score").addEventListener("click", saveScore);
+var score = 3.141592; //move to top!
+document.getElementById("submit-score").addEventListener("click", saveScore); //when swapping with form, use "submit" as the event
 
-var visitorInitials = document.getElementById("initials");
-function saveScore() {
-  console.log(visitorInitials);
-  console.log(visitorInitials.textContent);
-  var visitorScore = new VisitorScore(visitorInitials.textContent, score);
-  var serializedVisitorScore = JSON.stringify(visitorScore);
-  var currentScores = JSON.parse(localStorage.getItem(localStorageScoreKey));
-  // CONFIRM NOT NEEDED
-  if (!(currentScores && Array.isArray(currentScores))) {
-    currentScores = [];
+var visitorInitials = document.getElementById("initials"); //with jquery use .val()  CLEAN BEFORE ADDING
+function saveScore(event) {
+  event.preventDefault();
+  var visitorScore = new VisitorScore(visitorInitials.value, score);
+  var currentScores = [];
+  var localStorageScore = localStorage.getItem(localStorageScoreKey);
+  if (localStorageScore) {
+    currentScores = JSON.parse(localStorageScore);
+    console.log(currentScores);
   }
-  currentScores.push(serializedVisitorScore);
-  localStorage.setItem(localStorageScoreKey, currentScores);
+  currentScores.push(visitorScore);
+  localStorage.setItem(localStorageScoreKey, JSON.stringify(currentScores));
+  //STATE TRANSITION
 }
-
+document
+  .getElementById("high-score-link")
+  .addEventListener("click", showScores);
+function showScores(event) {
+  event.preventDefault();
+  showScoresEl.style.display = "inline";
+  currentScores = JSON.parse(localStorage.getItem(localStorageScoreKey));
+  var scoreTableEl = document.getElementById("high-scores");
+  console.log(scoreTableEl);
+  for (i = 0; i < currentScores.length; i++) {
+    var visitorScore = currentScores[i];
+    var tableRowEl = scoreTableEl.insertRow();
+    console.log(tableRowEl);
+    var initialsTableDataEl = tableRowEl.insertCell();
+    initialsTableDataEl.textContent = visitorScore.initials;
+    var scoreTableDataEl = tableRowEl.insertCell();
+    scoreTableDataEl.textContent = visitorScore.score;
+    var quizDateTableDataEl = tableRowEl.insertCell();
+    quizDateTableDataEl.textContent = visitorScore.quizDate;
+    console.log(tableRowEl);
+  }
+}
+//format table function
 function QuizQuestion(question, options, answer) {
   this.question = question;
   this.options = options;
