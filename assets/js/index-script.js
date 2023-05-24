@@ -172,7 +172,7 @@ function progressQuestions() {
 
 function setQuizQuestion(questionObj) {
   $("#quiz-question").text(questionObj.question);
-  for (i = 0; i < questionObj.options.length; i++) {
+  for (var i = 0; i < questionObj.options.length; i++) {
     var quizOption = $("<li>");
     quizOption.addClass("list-group-item");
     quizOption.addClass("list-group-item-action");
