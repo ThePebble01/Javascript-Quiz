@@ -1,4 +1,4 @@
-var localStorageScoreKey = "jsQuizScores"; //I NEED TO LEARN ABOUT CORS BEFORE I CAN TRY TO IMPORT/EXPORT....I AM WILLING TO HAVE 5 POINTS DEDUCTED FOR THIS
+import { localStorageScoreKey } from " https://thepebble01.github.io/Javascript-Quiz/assets/js/index-script.js";
 var currentScores = JSON.parse(localStorage.getItem(localStorageScoreKey));
 if (currentScores) {
   var scoreTableEl = $("#high-scores");
