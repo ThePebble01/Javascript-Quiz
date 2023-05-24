@@ -4,22 +4,32 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" type="text/css" href="./assets/css/style.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="./assets/css/index-style.css"
+    />
     <title>JS Quiz</title>
   </head>
   <body>
     <header>
       <!-- Double check that the high score page is separate -->
-      <div><a id="high-score-link" href="#">View High Scores</a></div>
+      <div>
+        <a id="high-score-link" href="./high-scores.html">View High Scores</a>
+      </div>
       <div>Time Remaining: <span id="quiz-timer">60</span></div>
     </header>
     <main>
       <div id="welcome-container">
         <h1>Javascript Trivia!</h1>
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga mollitia
-          rem perferendis! Quas, tenetur eos. Exercitationem eos nostrum sint
-          beatae.
+          Test your javascript knowledge with a timed quiz! There will be 20
+          questions with 1 minute on the clock. Each wrong answer deducts 5
+          seconds.
+          <br />
+          <br />
+          Once the timer runs out, or you correctly answer all the questions,
+          you'll be able to save your score. You can also review prior scores!
         </p>
         <button id="start-quiz">Start</button>
       </div>
@@ -28,8 +38,6 @@
         <ol id="options"></ol>
         <!-- add text clarifying this was the result of the prior score -->
         <div id="answer-result"></div>
-        <!-- Placeholder! -->
-        <button id="wrong">WRONG</button>
       </div>
       <div id="save-score">
         <!-- <form action=""></form>    SWAP USE AND ADD LISTENER TO FORM-->
@@ -39,30 +47,8 @@
         <!--Trim on call..-->
         <button id="submit-score">Submit</button>
       </div>
-      <div id="show-scores">
-        <table id="high-scores">
-          <tr>
-            <th>Initials</th>
-            <th>Score</th>
-            <th>Quiz Date</th>
-          </tr>
-          <div id="score-data">
-            <!-- ADD REMOVE BUTTON FOR HIGH SCORES
-            C:\Users\Orion\Desktop\class-repo-activities\week3\05-Third-Party-APIs\01-Activities\10-Stu_Event-Delegation\Unsolved\assets\js\script.js
-           -->
-            <!-- <tr>
-              <td>John</td>
-              <td>Doe</td>
-            </tr>
-            <tr>
-              <td>Jane</td>
-              <td>Doe</td>
-            </tr> -->
-          </div>
-        </table>
-      </div>
     </main>
-    <!--TO BE ADDED: <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> -->
-    <script src="./assets/js/script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="./assets/js/index-script.js"></script>
   </body>
 </html>
