@@ -1,0 +1,13 @@
+* {
+  background-color: azure;
+}
+header {
+  border-bottom: 1px solid;
+  padding: 0% 2% 0 2%;
+}
+.score-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

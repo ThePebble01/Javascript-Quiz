@@ -24,7 +24,7 @@
       <div>Time Remaining: <span id="quiz-timer">60</span></div>
     </header>
     <main>
-      <div id="welcome-container">
+      <section id="welcome-container">
         <h1>Javascript Trivia!</h1>
         <p>
           Test your javascript knowledge with a timed quiz! There will be 20
@@ -35,22 +35,40 @@
           Once the timer runs out, or you correctly answer all the questions,
           you'll be able to save your score. You can also review prior scores!
         </p>
-        <button id="start-quiz">Start</button>
-      </div>
-      <div id="quiz-question-container">
-        <div id="quiz-question"></div>
-        <ol id="options"></ol>
-        <!-- add text clarifying this was the result of the prior score -->
-        <div id="answer-result"></div>
-      </div>
-      <div id="save-score">
-        <!-- <form action=""></form>    SWAP USE AND ADD LISTENER TO FORM-->
-        <p>Your score is: <span id="final-score">0</span></p>
-        <label for="initials">Initials</label>
-        <input id="initials" type="text" />
-        <!--Trim on call..-->
-        <button id="submit-score">Submit</button>
-      </div>
+        <button
+          id="start-quiz"
+          class="btn btn-outline-secondary btn-info"
+          type="button"
+        >
+          Start Quiz
+        </button>
+      </section>
+      <section id="quiz-question-container">
+        <section id="quiz-question"></section>
+        <ol id="options" class="list-group-numbered"></ol>
+        <section id="answer-result"></section>
+      </section>
+      <section id="save-score-container">
+        <h3>Your score is: <span id="final-score">0</span></h3>
+        <form>
+          <div class="input-group mb-3">
+            <span class="input-group-text">Your Initials</span>
+            <input
+              id="initials"
+              type="text"
+              class="form-control"
+              placeholder="Initials"
+            />
+            <button
+              id="submit-score"
+              class="btn btn-outline-secondary btn-info"
+              type="button"
+            >
+              Save Score
+            </button>
+          </div>
+        </form>
+      </section>
     </main>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="./assets/js/index-script.js"></script>

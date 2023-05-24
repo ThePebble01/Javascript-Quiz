@@ -1,16 +1,4 @@
-/*
-TODO: GET THIS WORKING, THEN SWAP WITH JQUERY
-
-UPDATE IDS AND VAR NAMES TO REF SOURCE TAG/ELM
-
-
-BUTTON INVOKED FUNCTIONS GET HANDLE___ AT START OF NAME
-
-LISTENERS GO TO BOTTOM; ADD SECTION FOR IT
-*/
-
 const quizQuestions = [
-  //CHECK README FOR # Q's PROMISED
   new QuizQuestion(
     "What character separates individual javascript statements?",
     [":", ";", ".", "-"],
@@ -23,7 +11,7 @@ const quizQuestions = [
   ),
   new QuizQuestion(
     "Which method allows you to access an HTML element by its Id?  (No JQuery)",
-    ['$("#Id")', 'getElement("Id")', 'gimmeEl("#Id")', 'getElementById("Id")'], // PRETTTTTTIER!
+    ['$("#Id")', 'getElement("Id")', 'gimmeEl("#Id")', 'getElementById("Id")'], // PRETTTTTTIER REMOVED MY ESCAPES FOR DOUBLE QUOTES!
     'getElementById("Id")'
   ),
   new QuizQuestion(
@@ -57,7 +45,7 @@ const quizQuestions = [
     "\\"
   ),
   new QuizQuestion(
-    "A variable declared without a value defined is assigned which value?",
+    "A variable declared without also assigning a value to it is assigned which default value?",
     [
       "null",
       "' ' (space character...but not this explanaition of the option)",
@@ -67,7 +55,7 @@ const quizQuestions = [
     "undefined"
   ),
   new QuizQuestion(
-    "What characters identify an array in javascript?",
+    "Which characters identify an array in javascript?",
     ["{}", "||", "[]", "<>"],
     "[]"
   ),
@@ -114,7 +102,7 @@ const quizQuestions = [
   new QuizQuestion(
     "Can a variable declared within a function be accessed outside of it?",
     ["Yes", "No"],
-    "Yes"
+    "No"
   ),
   new QuizQuestion(
     "Variables declared outside of a function are ________.",
@@ -128,33 +116,30 @@ const quizQuestions = [
   ),
 ];
 const localStorageScoreKey = "jsQuizScores";
-
-var welcomeEl = $("#welcome-container");
 var quizEl = $("#quiz-question-container");
-var saveScoreEl = $("#save-score");
-var quizTimeRemainingEl = $("#quiz-timer"); // Does this make sense as a local var?  $ points, but needs to re-retrieve each second...
-
-var initialSecondsRemaining = 60; //rename
+var saveScoreEl = $("#save-score-container");
+var quizTimeRemainingEl = $("#quiz-timer"); //Declared as a global var to avoid minor delay with the JQuery pointer re-retrieving this element.
+var secondsRemaining = 60;
 var currentQuestionIndex = -1;
 var score = 0;
 
+// Event Handlers
 function handleStartQuiz(event) {
   event.preventDefault();
   startTimer();
-  changePageState(welcomeEl, quizEl);
+  changePageState($("#welcome-container"), quizEl);
   progressQuestions();
 }
 
 function handleQuizAnswer(event) {
-  event.preventDefault(); //?
-  console.log(event.target.textContent);
+  event.preventDefault();
   var answerResult = "";
   if (quizQuestions[currentQuestionIndex].answer === event.target.textContent) {
-    answerResult = "Correct!";
+    answerResult = "The prior answer was correct!";
     score++;
   } else {
-    answerResult = "Wrong!";
-    initialSecondsRemaining -= 4; //The penalty is 5 seconds, the timer will continue to deduct one....no need to increment the visitor's pain by reducing the total seconds by 5
+    answerResult = "The prior answer was wrong!";
+    secondsRemaining -= 4; //The penalty is 5 seconds, the timer will continue to deduct 1....no need to increment the visitor's pain.
   }
   $("#answer-result").text(answerResult);
   progressQuestions();
@@ -162,27 +147,23 @@ function handleQuizAnswer(event) {
 
 function handleSaveScore(event) {
   event.preventDefault();
-  console.log($("initials").val());
-  var visitorScore = new VisitorScore($("initials").val(), score);
+  var visitorScore = new VisitorScore($("#initials").val().trim(), score);
   var currentScores = [];
   var localStorageScore = localStorage.getItem(localStorageScoreKey);
   if (localStorageScore) {
     currentScores = JSON.parse(localStorageScore);
-    console.log(currentScores);
   }
   currentScores.push(visitorScore);
   localStorage.setItem(localStorageScoreKey, JSON.stringify(currentScores));
   window.location.href = "./high-scores.html";
-  //changePageState(saveScoreEl, welcomeEl); ?Redirect to high score page works on G Pages?
 }
-
+// Supporting Function
 function progressQuestions() {
   if (currentQuestionIndex < quizQuestions.length - 1) {
     currentQuestionIndex++;
     $("li").remove();
     setQuizQuestion(quizQuestions[currentQuestionIndex]);
   } else {
-    //The visitor has progressed through all the questions.
     changePageState(quizEl, saveScoreEl);
     $("#final-score").text(score);
   }
@@ -192,20 +173,22 @@ function setQuizQuestion(questionObj) {
   $("#quiz-question").text(questionObj.question);
   for (i = 0; i < questionObj.options.length; i++) {
     var quizOption = $("<li>");
+    quizOption.addClass("list-group-item");
+    quizOption.addClass("list-group-item-action");
     quizOption.text(questionObj.options[i]);
-    quizOption.val(i + 1);
     $("#options").append(quizOption);
   }
 }
 
 function startTimer() {
   var quizTimer = setInterval(function () {
-    initialSecondsRemaining--;
-    quizTimeRemainingEl.text(initialSecondsRemaining);
-    if (initialSecondsRemaining == 0) {
-      //MAKE STRICT BASED ON FEEDBACK FROM MOD 3...I WRITE THE VARS I KNOW WHAT TYPE THEY ARE
+    secondsRemaining--;
+    quizTimeRemainingEl.text(secondsRemaining);
+    if (secondsRemaining <= 0) {
+      secondsRemaining = secondsRemaining < 0 ? 0 : secondsRemaining; //Clear negative seconds for aesthetics on the save screen
       clearInterval(quizTimer);
-      //change state TO SCORE
+      changePageState(quizEl, saveScoreEl);
+      $("#final-score").text(score);
     }
   }, 1000);
 }
