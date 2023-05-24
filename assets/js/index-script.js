@@ -115,7 +115,7 @@ const quizQuestions = [
     "%"
   ),
 ];
-const localStorageScoreKey = "jsQuizScores";
+export const localStorageScoreKey = "jsQuizScores";
 var quizEl = $("#quiz-question-container");
 var saveScoreEl = $("#save-score-container");
 var quizTimeRemainingEl = $("#quiz-timer"); //Declared as a global var to avoid a minor delay with the JQuery pointer re-retrieving this element.
