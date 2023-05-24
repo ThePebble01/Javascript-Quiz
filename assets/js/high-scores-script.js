@@ -2,7 +2,7 @@ import { localStorageScoreKey } from " https://thepebble01.github.io/Javascript-
 var currentScores = JSON.parse(localStorage.getItem(localStorageScoreKey));
 if (currentScores) {
   var scoreTableEl = $("#high-scores");
-  for (i = 0; i < currentScores.length; i++) {
+  for (var i = 0; i < currentScores.length; i++) {
     var visitorScore = currentScores[i];
     var tableRowEl = $("<tr>");
 
