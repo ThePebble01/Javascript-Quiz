@@ -22,11 +22,8 @@ answer-result {
 }
 /* BLOCKS FOR TESTING STATES */
 #welcome-container {
-  display: inline;
+  display: none;
 }
 #save-score {
-  display: none;
-}
-#show-scores {
-  display: none;
+  display: block;
 }
